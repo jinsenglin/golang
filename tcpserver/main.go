@@ -2,7 +2,6 @@ package main
 
 import "fmt"
 import "net"
-import "bufio"
 
 func check(err error, message string) {
 	if err != nil {
@@ -25,15 +24,17 @@ func main() {
 		check(err, "accepted connection")
 
 		go func() {
-			buf := bufio.NewReader(conn)
+			buf := make([]byte, 1024)
 
 			for {
-				message, err := buf.ReadString('\n')
+				n, err := conn.Read(buf)
 
 				if err != nil {
-					fmt.Println("disconnected client")
+					fmt.Println("disconnected connection")
 					break
 				}
+
+				message := string(buf[0:n])
 
 				fmt.Println("message :", message)
 				conn.Write([]byte(message))
