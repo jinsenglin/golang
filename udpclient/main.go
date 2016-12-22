@@ -29,11 +29,16 @@ func main() {
 	i := 0
 	for {
 		msg := strconv.Itoa(i)
-		i++
 		buf := []byte(msg)
 		_, err := conn.Write(buf)
 		check(err, "")
+
+		n, addr, err := conn.ReadFromUDP(buf)
+		check(err, "")
+		fmt.Println("message :", string(buf[0:n]), " from", addr) 
+
 		time.Sleep(time.Second * 1)
+		i++
 	}
 
 	fmt.Println("exit 0")
