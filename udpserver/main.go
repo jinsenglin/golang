@@ -27,8 +27,11 @@ func main() {
 		n, addr, err := conn.ReadFromUDP(buf)
 		check(err, "")
 
-		fmt.Println("message :", string(buf[0:n]), " from", addr)
-		conn.WriteTo(buf[0:n], addr)
+		go func(conn *net.UDPConn, addr *net.UDPAddr, message string) {
+			fmt.Println("message :", message, " from", addr)
+			_, err := conn.WriteToUDP([]byte(message), addr)
+			check(err, "")
+		}(conn, addr, string(buf[0:n]))
 	}
 
 	fmt.Println("exit 0")

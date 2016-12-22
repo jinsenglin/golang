@@ -2,8 +2,7 @@ package main
 
 import "fmt"
 import "net"
-import "strconv"
-import "time"
+import "bufio"
 
 func check(err error, message string) {
 	if err != nil {
@@ -13,33 +12,23 @@ func check(err error, message string) {
 }
 
 func main() {
+	data := "message"
+
 	fmt.Println("starting udp client to server 0.0.0.0:8080 ...")
 
-	server_addr,err := net.ResolveUDPAddr("udp", ":8080")
-	check(err, "prepared udp server addr :8080")
-
-	local_addr, err := net.ResolveUDPAddr("udp", ":0")
-	check(err, "prepared udp client addr :0")
-
-	conn, err := net.DialUDP("udp", local_addr, server_addr)
+	conn, err := net.Dial("udp", ":8080")
 	check(err, "")
 
 	defer conn.Close()
 
-	i := 0
-	for {
-		msg := strconv.Itoa(i)
-		buf := []byte(msg)
-		_, err := conn.Write(buf)
-		check(err, "")
+	fmt.Fprintf(conn, data)
 
-		n, addr, err := conn.ReadFromUDP(buf)
-		check(err, "")
-		fmt.Println("message :", string(buf[0:n]), " from", addr) 
+	buf :=  make([]byte, 1024)
+	n, err := bufio.NewReader(conn).Read(buf)
+	check(err, "")
 
-		time.Sleep(time.Second * 1)
-		i++
-	}
+	message := string(buf[0:n])
+	fmt.Println("message :", message)
 
 	fmt.Println("exit 0")
 }
