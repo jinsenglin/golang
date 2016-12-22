@@ -8,7 +8,7 @@ func check(err error, message string) {
 	if err != nil {
 		panic(err)
 	}
-	fmt.Printf("%s\n", message)
+	fmt.Println(message)
 }
 
 func main() {
@@ -25,14 +25,15 @@ func main() {
 			buf := bufio.NewReader(conn)
 
 			for {
-				data, err := buf.ReadString('\n')
+				message, err := buf.ReadString('\n')
 
 				if err != nil {
 					fmt.Println("disconnected client")
 					break
 				}
 
-				conn.Write([]byte(data))
+				fmt.Println("message :", message)
+				conn.Write([]byte(message))
 			}
 		}()
 	}

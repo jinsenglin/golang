@@ -4,26 +4,29 @@ import "fmt"
 import "net"
 import "bufio"
 
+func check(err error, message string) {
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println(message)
+}
+
 func main() {
+	data := "message"
+
 	fmt.Println("starting tcp client to server 0.0.0.0:8080 ...")
 
-	conn, err := net.Dial("tcp", "127.0.0.1:8080")
+	conn, err := net.Dial("tcp", ":8080")
+	check(err, "")
 
-	if err != nil {
-		panic(err)
-	}
+	defer conn.Close()
 
-	fmt.Println("sending message ...")
-	fmt.Fprintf(conn, "message\n")
+	fmt.Fprintf(conn, data + "\n")
 
-	fmt.Println("receiving message ...")
 	message, err := bufio.NewReader(conn).ReadString('\n')
+	check(err, "")
 
-	if err != nil {
-		panic(err)
-	}
-
-	fmt.Println("received message :", message)
+	fmt.Println("message :", message)
 
 	fmt.Println("exit 0")
 }
