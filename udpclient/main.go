@@ -9,17 +9,17 @@ func check(err error, message string) {
 	if err != nil {
 		panic(err)
 	}
-	fmt.Printf("%s\n", message)
+	fmt.Println(message)
 }
 
 func main() {
 	fmt.Println("starting udp client to server 0.0.0.0:8080 ...")
 
-	server_addr,err := net.ResolveUDPAddr("udp", "127.0.0.1:8080")
-	check(err, "")
+	server_addr,err := net.ResolveUDPAddr("udp", ":8080")
+	check(err, "prepared udp server addr :8080")
 
-	local_addr, err := net.ResolveUDPAddr("udp", "127.0.0.1:0")
-	check(err, "")
+	local_addr, err := net.ResolveUDPAddr("udp", ":0")
+	check(err, "prepared udp client addr :0")
 
 	conn, err := net.DialUDP("udp", local_addr, server_addr)
 	check(err, "")

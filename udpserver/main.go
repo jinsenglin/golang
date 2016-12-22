@@ -26,9 +26,8 @@ func main() {
 	for {
 		n, addr, err := conn.ReadFromUDP(buf)
 
-		check(err, "received data")
-
-		fmt.Println("Received ", string(buf[0:n]), " from ", addr)
+		check(err, "")
+		fmt.Println("message :", string(buf[0:n]), " from", addr)
 	}
 
 	fmt.Println("exit 0")
