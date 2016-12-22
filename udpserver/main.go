@@ -7,17 +7,17 @@ func check(err error, message string) {
 	if err != nil {
 		panic(err)
 	}
-	fmt.Printf("%s\n", message)
+	fmt.Println(message)
 }
 
 func main() {
 	fmt.Println("starting udp server 0.0.0.0:8080 ...")
 
 	addr, err := net.ResolveUDPAddr("udp",":8080")
-	check(err, "prepared udp server addr 0.0.0.0:8080")
+	check(err, "")
 
 	conn, err := net.ListenUDP("udp", addr)
-	check(err, "started udp server 0.0.0.0:8080")
+	check(err, "started udp server 0.0.0.0:8080 ...")
 
 	defer conn.Close()
 
@@ -28,7 +28,7 @@ func main() {
 		check(err, "")
 
 		go func(conn *net.UDPConn, addr *net.UDPAddr, message string) {
-			fmt.Println("message :", message, " from", addr)
+			fmt.Println("message :", message)
 			_, err := conn.WriteToUDP([]byte(message), addr)
 			check(err, "")
 		}(conn, addr, string(buf[0:n]))
