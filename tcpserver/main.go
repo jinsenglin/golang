@@ -8,7 +8,10 @@ func check(err error, message string) {
 	if err != nil {
 		panic(err)
 	}
-	fmt.Println(message)
+
+	if message != "" {
+		fmt.Println(message)
+	}
 }
 
 func main() {
