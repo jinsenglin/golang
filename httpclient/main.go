@@ -12,9 +12,11 @@ func check(err error, message string) {
 }
 
 func main() {
-	fmt.Println("starting http client to get http://localhost:8080/message")
+	data := "message"
 
-	resp, err := http.Get("http://localhost:8080/message")
+	fmt.Println("starting http client to get http://localhost:8080/" + data)
+
+	resp, err := http.Get("http://localhost:8080/" + data)
 	check(err, "")
 
 	defer resp.Body.Close()
