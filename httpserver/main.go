@@ -4,8 +4,9 @@ import "fmt"
 import "net/http"
 
 func handler(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("request in")
-	fmt.Fprintf(w, "Hi there, I love %s!", r.URL.Path[1:])
+	message := r.URL.Path[0:]
+	fmt.Println("message :", message)
+	fmt.Fprintf(w, message)
 }
 
 func main() {
