@@ -8,7 +8,10 @@ func check(err error, message string) {
 	if err != nil {
 		panic(err)
 	}
-	fmt.Println(message)
+
+	if message != "" {
+		fmt.Println(message)
+	}
 }
 
 func main() {
@@ -21,11 +24,13 @@ func main() {
 
 	defer conn.Close()
 
-	fmt.Fprintf(conn, data + "\n")
+	fmt.Fprintf(conn, data)
 
-	message, err := bufio.NewReader(conn).ReadString('\n')
+	buf := make([]byte, 1024)
+	n, err := bufio.NewReader(conn).Read(buf)
 	check(err, "")
 
+	message := string(buf[0:n])
 	fmt.Println("message :", message)
 
 	fmt.Println("exit 0")
