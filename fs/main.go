@@ -34,4 +34,14 @@ func main() {
 
 	log.Println("rm -rf dir1/*")
 	removeContents("dir1")
+
+	log.Println("[ -f none ] && echo none exists")
+	if _, err := os.Stat("none"); err == nil {
+		log.Println("none exists")
+	}
+
+	log.Println("[ ! -f none ] && echo none dones't exist")
+	if _, err := os.Stat("none"); os.IsNotExist(err) {
+		log.Println("none doesn't exist")
+	}
 }
