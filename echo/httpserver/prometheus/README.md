@@ -8,3 +8,12 @@ go run main.go
 curl http://localhose:8080/echo
 curl http://localhost:8080/metrics
 ```
+
+# Build Docker Image
+
+```
+govendor init
+govendor add +external
+
+docker build -t jimlintw/go-app-with-metrics .
+```
