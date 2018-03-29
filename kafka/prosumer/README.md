@@ -8,4 +8,5 @@ go get -u github.com/confluentinc/confluent-kafka-go/kafka
 
 # Reference
 
-* https://github.com/confluentinc/confluent-kafka-go/
+* confluent-kafka-go https://github.com/confluentinc/confluent-kafka-go/
+* confluent-kafka-go GoDoc https://godoc.org/github.com/confluentinc/confluent-kafka-go/kafka
