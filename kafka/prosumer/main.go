@@ -112,7 +112,7 @@ func main() {
 				log.Fatalf("Producer error: %v (%v)\n", err, msg)
 			}
 
-			break // just read one
+			break // just prosume one
 		} else {
 			log.Fatalf("Consumer error: %v (%v)\n", err, msg)
 		}
