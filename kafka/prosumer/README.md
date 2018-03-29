@@ -21,6 +21,12 @@ python
 >>> from kafka import KafkaProducer
 >>> producer = KafkaProducer(bootstrap_servers='192.168.240.86:9092')
 >>> producer.send('foo', b'1')
+
+# terminal 2 - stop
+
+# terminal 3 - produce message to topic foo
+
+# terminal 2 - start
 ```
 
 # Reference

@@ -72,6 +72,7 @@ func main() {
 	c, err := kafka.NewConsumer(&kafka.ConfigMap{
 		"bootstrap.servers": "192.168.240.86",
 		"group.id":          "cclin",
+		"auto.offset.reset": "earliest",
 	})
 
 	if err != nil {
